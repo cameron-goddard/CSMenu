@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class CSPopUpButton: NSButton {
+public class CSPopUpButton: NSButton {
     // TODO: change
     var popUpMenu: CSMenu?
     
@@ -20,7 +20,7 @@ class CSPopUpButton: NSButton {
     private let base = NSImage(named: "cs_button")!
     private let basePressed = NSImage(named: "cs_button_pressed")!
     
-    override init(frame frameRect: NSRect) {
+    public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setup()
     }
@@ -43,11 +43,11 @@ class CSPopUpButton: NSButton {
         self.lastItem = item
     }
 
-    override func draw(_ dirtyRect: NSRect) {
+    public override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
     }
     
-    override func mouseDown(with event: NSEvent) {
+    public override func mouseDown(with event: NSEvent) {
         // TODO: Add monitors if no mouseDown override
         if self.state == .on {
             self.image = self.base

@@ -7,14 +7,14 @@
 
 import Cocoa
 
-class CSMenuItem: NSButton {
+public class CSMenuItem: NSButton {
     
     var isSeparatorItem: Bool = false
     
     private var trackingArea : NSTrackingArea!
     private let overlayLayer = CALayer()
 
-    override func draw(_ dirtyRect: NSRect) {
+    public override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
         // Drawing code here.
@@ -25,7 +25,7 @@ class CSMenuItem: NSButton {
         setup()
     }
     
-    override init(frame: NSRect) {
+    public override init(frame: NSRect) {
         super.init(frame: frame)
         setup()
     }
