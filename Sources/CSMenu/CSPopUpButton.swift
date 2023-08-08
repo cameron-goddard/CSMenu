@@ -12,7 +12,7 @@ public class CSPopUpButton: NSButton {
     var popUpMenu: CSMenu?
     
     // TODO: make private
-    var menuItems: [CSMenuItem] = []
+    public var menuItems: [CSMenuItem] = []
     private var isShown = false
     
     private var icon = NSImage()
