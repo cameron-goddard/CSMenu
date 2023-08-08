@@ -48,7 +48,7 @@ public class CSMenuItem: NSButton {
         return separatorItem
     }
     
-    override func updateTrackingAreas() {
+    public override func updateTrackingAreas() {
         super.updateTrackingAreas()
         
         trackingAreas.forEach { trackingArea in
@@ -57,7 +57,7 @@ public class CSMenuItem: NSButton {
         addTrackingRect(bounds, owner: self, userData: nil, assumeInside: false)
     }
     
-    override func mouseEntered(with event: NSEvent) {
+    public override func mouseEntered(with event: NSEvent) {
         super.mouseEntered(with: event)
         if (self.isEnabled) {
             // TODO: Tint the right color
@@ -68,7 +68,7 @@ public class CSMenuItem: NSButton {
         }
     }
         
-    override func mouseExited(with event: NSEvent) {
+    public override func mouseExited(with event: NSEvent) {
         super.mouseExited(with: event)
         if (self.isEnabled) {
             overlayLayer.removeFromSuperlayer()
