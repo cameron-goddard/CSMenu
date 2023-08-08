@@ -77,15 +77,16 @@ class CSMenuPanel: NSPanel {
         let baseImage = NSImage(size: .init(width: 89 * SCALE, height: height * SCALE))
         baseImage.lockFocus()
         
-        let middle = NSImage(named: middle)!
+        
+        let middle = Bundle.module.image(forResource: middle)!
         middle.size = .init(width: 89 * SCALE, height: height * SCALE)
         middle.draw(at: NSPoint.zero, from: NSRect(origin: NSPoint.zero, size: middle.size), operation: .copy, fraction: 1.0)
 
-        let right = NSImage(named: right)!
+        let right = Bundle.module.image(forResource: right)!
         right.size = .init(width: 1 * SCALE, height: height * SCALE)
         right.draw(at: NSPoint(x: 88 * SCALE, y: 0), from: NSRect(origin: NSPoint.zero, size: right.size), operation: .sourceOver, fraction: 1.0)
         
-        let left = NSImage(named: left)!
+        let left = Bundle.module.image(forResource: left)!
         left.size = .init(width: 1 * SCALE, height: height * SCALE)
         left.draw(at: NSPoint(x: 0 * SCALE, y: 0), from: NSRect(origin: NSPoint.zero, size: left.size), operation: .sourceOver, fraction: 1.0)
         

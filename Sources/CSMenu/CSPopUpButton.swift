@@ -15,23 +15,19 @@ public class CSPopUpButton: NSButton {
     public var menuItems: [CSMenuItem] = []
     private var isShown = false
     
-    private var icon = NSImage()
+    private var icon: NSImage?
     private var texture: NSImage?
     private var texturePressed: NSImage?
     
     public var lastItem: CSMenuItem?
     
-    private let base = NSImage(named: "cs_button")!
-    private let basePressed = NSImage(named: "cs_button_pressed")!
+    private let base = Bundle.module.image(forResource: "cs_button")!
+    private let basePressed = Bundle.module.image(forResource: "cs_button_pressed")!
     
     public init(icon: NSImage, x: Int, y: Int) {
         self.icon = icon
-        
-        self.texture = CSPopUpButton.addIcon(base: base, icon: icon, x: CGFloat((x+3))*SCALE, y: CGFloat((y+3))*SCALE)
-        self.texturePressed = CSPopUpButton.addIcon(base: basePressed, icon: icon, x: CGFloat((x+4))*SCALE, y: CGFloat((y+2))*SCALE)
-        
         super.init(frame: NSRect(x: 100.0, y: 0.0, width: 31 * SCALE, height: 24 * SCALE))
-        setup()
+        setup(x: x, y: y)
     }
     
     public override init(frame frameRect: NSRect) {
@@ -44,11 +40,21 @@ public class CSPopUpButton: NSButton {
         setup()
     }
     
-    internal func setup() {
+    // TODO: Consider changing the icon offsets system
+    internal func setup(x: Int = -1, y: Int = -1) {
         self.setButtonType(.pushOnPushOff)
         base.size = .init(width: 31 * SCALE, height: 24 * SCALE)
         basePressed.size = .init(width: 31 * SCALE, height: 24 * SCALE)
-        self.image = base
+        
+        if let icon = self.icon {
+            self.texture = CSPopUpButton.addIcon(base: self.base, icon: icon, x: CGFloat((x+3))*SCALE, y: CGFloat((y+3))*SCALE)
+            self.texturePressed = CSPopUpButton.addIcon(base: self.basePressed, icon: icon, x: CGFloat((x+4))*SCALE, y: CGFloat((y+2))*SCALE)
+        } else {
+            self.texture = self.base
+            self.texturePressed = self.basePressed
+        }
+        
+        self.image = self.texture
     }
     
     public func addItem(withTitle title: String) {
