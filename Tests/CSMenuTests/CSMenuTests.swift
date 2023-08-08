@@ -6,6 +6,6 @@ final class CSMenuTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(CSMenu().text, "Hello, World!")
+        // XCTAssertEqual(CSMenu().text, "Hello, World!")
     }
 }

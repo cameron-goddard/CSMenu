@@ -1,3 +1,3 @@
 # CSMenu
 
-A description of this package.
+A custom view-based NSMenu for use in another project...
