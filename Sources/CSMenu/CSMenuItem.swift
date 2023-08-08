@@ -1,6 +1,6 @@
 //
 //  CSMenuButton.swift
-//  CSMenu Test
+//  CSMenu
 //
 //  Created by Cameron Goddard on 8/7/23.
 //
@@ -10,14 +10,14 @@ import Cocoa
 public class CSMenuItem: NSButton {
     
     var isSeparatorItem: Bool = false
+    weak var csMenu: CSMenu?
     
     private var trackingArea : NSTrackingArea!
     private let overlayLayer = CALayer()
 
     public override func draw(_ dirtyRect: NSRect) {
+        self.alignment = .left
         super.draw(dirtyRect)
-
-        // Drawing code here.
     }
     
     required public init?(coder: NSCoder) {
@@ -31,6 +31,7 @@ public class CSMenuItem: NSButton {
     }
     
     internal func setup() {
+        self.cell = CSMenuItemCell()
         self.bezelStyle = .regularSquare
         self.isBordered = false
         (self.cell as! NSButtonCell).imageDimsWhenDisabled = false
@@ -45,6 +46,7 @@ public class CSMenuItem: NSButton {
         let separatorItem = CSMenuItem()
         separatorItem.isSeparatorItem = true
         separatorItem.isEnabled = false
+        separatorItem.title = ""
         return separatorItem
     }
     
@@ -61,10 +63,16 @@ public class CSMenuItem: NSButton {
         super.mouseEntered(with: event)
         if (self.isEnabled) {
             // TODO: Tint the right color
-            let overlayColor = NSColor(red: 0.5, green: 1.0, blue: 1.0, alpha: 0.5)
+            let overlayColor = NSColor(red: 0, green: 0, blue: 1.0, alpha: 0.5)
             overlayLayer.backgroundColor = overlayColor.cgColor
             overlayLayer.frame = self.bounds
             self.layer?.addSublayer(overlayLayer)
+            
+            let atts: [NSAttributedString.Key: Any] = [
+                .foregroundColor: NSColor.white
+            ]
+            let attTitle = NSMutableAttributedString(string: self.title, attributes: atts)
+            self.attributedTitle = attTitle
         }
     }
         
@@ -72,6 +80,26 @@ public class CSMenuItem: NSButton {
         super.mouseExited(with: event)
         if (self.isEnabled) {
             overlayLayer.removeFromSuperlayer()
+            let atts: [NSAttributedString.Key: Any] = [
+                .foregroundColor: NSColor.black
+            ]
+            let attTitle = NSMutableAttributedString(string: self.title, attributes: atts)
+            self.attributedTitle = attTitle
         }
+    }
+    
+    public override func mouseUp(with event: NSEvent) {
+        // TODO: Fix this
+        super.mouseUp(with: event)
+        self.csMenu!.dismiss()
+    }
+    
+}
+
+class CSMenuItemCell: NSButtonCell {
+    override func titleRect(forBounds rect: NSRect) -> NSRect {
+        var title = super.titleRect(forBounds: rect)
+        title.origin.x = title.origin.x + 20
+        return title
     }
 }

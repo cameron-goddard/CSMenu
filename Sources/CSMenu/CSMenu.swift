@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class CSMenu: NSObject {
+class CSMenu {
     
     public private(set) var items: [CSMenuItem]
     public var panel: CSMenuPanel?
@@ -16,13 +16,17 @@ class CSMenu: NSObject {
     
     init(items: [CSMenuItem]) {
         self.items = items
+        for item in self.items {
+            item.csMenu = self
+        }
     }
     
     public func addItem(_ newItem: CSMenuItem) {
+        newItem.csMenu = self
         self.items.append(newItem)
     }
     
-    public override init() {
+    public init() {
         self.items = []
     }
     

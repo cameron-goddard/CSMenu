@@ -1,13 +1,13 @@
 //
 //  CSMenuPanel.swift
-//  CSMenu Test
+//  CSMenu
 //
 //  Created by Cameron Goddard on 7/4/23.
 //
 
 import Cocoa
 
-let SCALE = 1.5
+let SCALE = 2.0
 
 class CSMenuPanel: NSPanel {
     private var stackView: NSStackView?
@@ -51,6 +51,14 @@ class CSMenuPanel: NSPanel {
             else {
                 menuItem.image = composeImage(left: "top_left", middle: "middle_middle", right: "middle_right")
             }
+            if menuItem.state == .on {
+                menuItem.image = CSMenuPanel.addSelected(base: menuItem.image!)
+            }
+            let atts: [NSAttributedString.Key: Any] = [
+                .foregroundColor: NSColor.black
+            ]
+            let attTitle = NSMutableAttributedString(string: menuItem.title, attributes: atts)
+            menuItem.attributedTitle = attTitle
             stackView.addArrangedSubview(menuItem)
             i += 1
         }
@@ -77,7 +85,6 @@ class CSMenuPanel: NSPanel {
         let baseImage = NSImage(size: .init(width: 89 * SCALE, height: height * SCALE))
         baseImage.lockFocus()
         
-        
         let middle = Bundle.module.image(forResource: middle)!
         middle.size = .init(width: 89 * SCALE, height: height * SCALE)
         middle.draw(at: NSPoint.zero, from: NSRect(origin: NSPoint.zero, size: middle.size), operation: .copy, fraction: 1.0)
@@ -92,6 +99,19 @@ class CSMenuPanel: NSPanel {
         
         baseImage.unlockFocus()
         return baseImage
+    }
+    
+    private static func addSelected(base: NSImage) -> NSImage {
+        let image = NSImage(size: base.size)
+        image.lockFocus()
+        let selected = Bundle.module.image(forResource: "selected")!
+        selected.size = .init(width: selected.size.width * SCALE, height: selected.size.height * SCALE)
+        
+        base.draw(at: NSPoint.zero, from: NSRect(origin: NSPoint.zero, size: base.size), operation: .copy, fraction: 1.0)
+        selected.draw(at: NSPoint(x: 2 * SCALE, y: 4 * SCALE), from: NSRect(origin: NSPoint.zero, size: selected.size), operation: .sourceOver, fraction: 1.0)
+
+        image.unlockFocus()
+        return image
     }
     
 }
