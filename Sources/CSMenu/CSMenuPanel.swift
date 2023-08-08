@@ -7,7 +7,7 @@
 
 import Cocoa
 
-let SCALE = 2.0
+let SCALE = 1.5
 
 class CSMenuPanel: NSPanel {
     private var stackView: NSStackView?
