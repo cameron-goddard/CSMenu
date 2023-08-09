@@ -88,15 +88,15 @@ class CSMenuPanel: NSPanel {
         
         let middle = Bundle.module.image(forResource: middle)!
         middle.size = .init(width: 89 * SCALE, height: height * SCALE)
-        middle.draw(at: NSPoint.zero, from: NSRect(origin: NSPoint.zero, size: middle.size), operation: .copy, fraction: 1.0)
+        middle.draw(at: .zero, from: NSRect(origin: .zero, size: middle.size), operation: .copy, fraction: 1.0)
 
         let right = Bundle.module.image(forResource: right)!
         right.size = .init(width: 1 * SCALE, height: height * SCALE)
-        right.draw(at: NSPoint(x: 88 * SCALE, y: 0), from: NSRect(origin: NSPoint.zero, size: right.size), operation: .sourceOver, fraction: 1.0)
+        right.draw(at: NSPoint(x: 88 * SCALE, y: 0), from: NSRect(origin: .zero, size: right.size), operation: .sourceOver, fraction: 1.0)
         
         let left = Bundle.module.image(forResource: left)!
         left.size = .init(width: 1 * SCALE, height: height * SCALE)
-        left.draw(at: NSPoint(x: 0 * SCALE, y: 0), from: NSRect(origin: NSPoint.zero, size: left.size), operation: .sourceOver, fraction: 1.0)
+        left.draw(at: .zero, from: NSRect(origin: .zero, size: left.size), operation: .sourceOver, fraction: 1.0)
         
         baseImage.unlockFocus()
         return baseImage
@@ -108,8 +108,8 @@ class CSMenuPanel: NSPanel {
         let selected = Bundle.module.image(forResource: "selected")!
         selected.size = .init(width: selected.size.width * SCALE, height: selected.size.height * SCALE)
         
-        base.draw(at: NSPoint.zero, from: NSRect(origin: NSPoint.zero, size: base.size), operation: .copy, fraction: 1.0)
-        selected.draw(at: NSPoint(x: 2 * SCALE, y: 4 * SCALE), from: NSRect(origin: NSPoint.zero, size: selected.size), operation: .sourceOver, fraction: 1.0)
+        base.draw(at: .zero, from: NSRect(origin: .zero, size: base.size), operation: .copy, fraction: 1.0)
+        selected.draw(at: NSPoint(x: 2 * SCALE, y: 4 * SCALE), from: NSRect(origin: .zero, size: selected.size), operation: .sourceOver, fraction: 1.0)
 
         image.unlockFocus()
         return image

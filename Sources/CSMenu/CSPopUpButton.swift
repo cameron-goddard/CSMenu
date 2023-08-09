@@ -26,7 +26,8 @@ public class CSPopUpButton: NSButton {
     
     public init(icon: NSImage) {
         self.icon = icon
-        super.init(frame: NSRect(x: 100.0, y: 0.0, width: 31 * SCALE, height: 24 * SCALE))
+        self.icon!.size = .init(width: icon.size.width * SCALE, height: icon.size.height * SCALE)
+        super.init(frame: NSRect(x: 0, y: 0, width: 31 * SCALE, height: 24 * SCALE))
         setup()
     }
     

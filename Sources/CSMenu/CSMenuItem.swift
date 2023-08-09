@@ -91,7 +91,7 @@ public class CSMenuItem: NSButton {
     }
     
     public override func mouseUp(with event: NSEvent) {
-        // TODO: Fix this
+        // TODO: Fix this - need to override mouseDown
         super.mouseUp(with: event)
         self.csMenu!.dismiss()
     }
