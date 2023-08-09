@@ -42,6 +42,7 @@ public class CSPopUpButton: NSButton {
     
     // TODO: Consider changing the icon offsets system
     internal func setup(x: Int = -1, y: Int = -1) {
+        self.isBordered = false
         self.setButtonType(.pushOnPushOff)
         base.size = .init(width: 31 * SCALE, height: 24 * SCALE)
         basePressed.size = .init(width: 31 * SCALE, height: 24 * SCALE)
