@@ -55,6 +55,7 @@ class CSMenuPanel: NSPanel {
                 menuItem.image = CSMenuPanel.addSelected(base: menuItem.image!)
             }
             let atts: [NSAttributedString.Key: Any] = [
+                //.font: NSFont(name: "FindersKeepers", size: 24)!,
                 .foregroundColor: NSColor.black
             ]
             let attTitle = NSMutableAttributedString(string: menuItem.title, attributes: atts)

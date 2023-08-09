@@ -16,7 +16,6 @@ public class CSMenuItem: NSButton {
     private let overlayLayer = CALayer()
 
     public override func draw(_ dirtyRect: NSRect) {
-        self.alignment = .left
         super.draw(dirtyRect)
     }
     
@@ -34,6 +33,7 @@ public class CSMenuItem: NSButton {
         self.cell = CSMenuItemCell()
         self.bezelStyle = .regularSquare
         self.isBordered = false
+        self.alignment = .left
         (self.cell as! NSButtonCell).imageDimsWhenDisabled = false
         self.wantsLayer = true
         
@@ -69,6 +69,7 @@ public class CSMenuItem: NSButton {
             self.layer?.addSublayer(overlayLayer)
             
             let atts: [NSAttributedString.Key: Any] = [
+                //.font: NSFont(name: "FindersKeepers", size: 24)!,
                 .foregroundColor: NSColor.white
             ]
             let attTitle = NSMutableAttributedString(string: self.title, attributes: atts)
@@ -81,6 +82,7 @@ public class CSMenuItem: NSButton {
         if (self.isEnabled) {
             overlayLayer.removeFromSuperlayer()
             let atts: [NSAttributedString.Key: Any] = [
+                //.font: NSFont(name: "FindersKeepers", size: 24)!,
                 .foregroundColor: NSColor.black
             ]
             let attTitle = NSMutableAttributedString(string: self.title, attributes: atts)
@@ -100,6 +102,7 @@ class CSMenuItemCell: NSButtonCell {
     override func titleRect(forBounds rect: NSRect) -> NSRect {
         var title = super.titleRect(forBounds: rect)
         title.origin.x = title.origin.x + 20
+        //title.origin.y = title.origin.y - 2
         return title
     }
 }

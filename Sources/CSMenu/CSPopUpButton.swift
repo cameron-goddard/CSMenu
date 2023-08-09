@@ -24,10 +24,10 @@ public class CSPopUpButton: NSButton {
     private let base = Bundle.module.image(forResource: "cs_button")!
     private let basePressed = Bundle.module.image(forResource: "cs_button_pressed")!
     
-    public init(icon: NSImage, x: Int, y: Int) {
+    public init(icon: NSImage) {
         self.icon = icon
         super.init(frame: NSRect(x: 100.0, y: 0.0, width: 31 * SCALE, height: 24 * SCALE))
-        setup(x: x, y: y)
+        setup()
     }
     
     public override init(frame frameRect: NSRect) {
@@ -40,16 +40,15 @@ public class CSPopUpButton: NSButton {
         setup()
     }
     
-    // TODO: Consider changing the icon offsets system
-    internal func setup(x: Int = -1, y: Int = -1) {
+    internal func setup() {
         self.isBordered = false
         self.setButtonType(.pushOnPushOff)
         base.size = .init(width: 31 * SCALE, height: 24 * SCALE)
         basePressed.size = .init(width: 31 * SCALE, height: 24 * SCALE)
         
         if let icon = self.icon {
-            self.texture = CSPopUpButton.addIcon(base: self.base, icon: icon, x: CGFloat((x+3))*SCALE, y: CGFloat((y+3))*SCALE)
-            self.texturePressed = CSPopUpButton.addIcon(base: self.basePressed, icon: icon, x: CGFloat((x+4))*SCALE, y: CGFloat((y+2))*SCALE)
+            self.texture = CSPopUpButton.addIcon(base: self.base, icon: icon, x: 3 * SCALE, y: 4 * SCALE)
+            self.texturePressed = CSPopUpButton.addIcon(base: self.basePressed, icon: icon, x: 4 * SCALE, y: 3 * SCALE)
         } else {
             self.texture = self.base
             self.texturePressed = self.basePressed
