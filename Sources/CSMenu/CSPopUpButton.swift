@@ -7,13 +7,23 @@
 
 import Cocoa
 
-public class CSPopUpButton: NSButton {
+public class CSPopUpButton: NSButton, CSMenuDelegate {
     // TODO: change
     var popUpMenu: CSMenu?
     
     // TODO: make private
     public var menuItems: [CSMenuItem] = []
     private var isShown = false
+    
+    override public var state: NSControl.StateValue {
+        didSet {
+            if state == .on {
+                self.image = self.texturePressed
+            } else {
+                self.image = self.texture
+            }
+        }
+    }
     
     private var icon: NSImage?
     private var texture: NSImage?
@@ -44,6 +54,8 @@ public class CSPopUpButton: NSButton {
     internal func setup() {
         self.isBordered = false
         self.setButtonType(.pushOnPushOff)
+//        (self.cell as! NSButtonCell).highlightsBy = .contentsCellMask
+//        (self.cell as! NSButtonCell).showsStateBy = .pushInCellMask
         base.size = .init(width: 31 * SCALE, height: 24 * SCALE)
         basePressed.size = .init(width: 31 * SCALE, height: 24 * SCALE)
         
@@ -69,14 +81,13 @@ public class CSPopUpButton: NSButton {
     }
     
     public override func mouseDown(with event: NSEvent) {
-        // TODO: Add monitors if no mouseDown override
         if self.state == .on {
-            self.image = self.texture
             self.state = .off
         } else {
-            self.image = self.texturePressed
             self.state = .on
         }
+        
+        //super.mouseDown(with: event)
         
         let buttonFrame = self.convert(self.bounds, to: nil)
         let windowFrame = self.superview?.window!.convertToScreen(buttonFrame)
@@ -90,17 +101,25 @@ public class CSPopUpButton: NSButton {
             }
         } else {
             print("in this branch")
+            //let slider = CSSliderPanel(at: screenOrigin)
+            //superview!.window?.addChildWindow(slider, ordered: .above)
             popUpMenu = CSMenu(items: self.menuItems)
             popUpMenu?.popUp(at: screenOrigin, in: superview!)
+            popUpMenu?.addMonitor(ignoring: [self])
+            popUpMenu?.delegate = self
         }
+    }
+    
+    func menuDidClose() {
+        self.state = .off
     }
     
     private static func addIcon(base: NSImage, icon: NSImage, x: CGFloat, y: CGFloat) -> NSImage {
         let image = NSImage(size: base.size)
         image.lockFocus()
         
-        base.draw(at: NSPoint.zero, from: NSRect(origin: NSPoint.zero, size: base.size), operation: .copy, fraction: 1.0)
-        icon.draw(at: NSPoint(x: x, y: y), from: NSRect(origin: NSPoint.zero, size: icon.size), operation: .sourceOver, fraction: 1.0)
+        base.draw(at: .zero, from: NSRect(origin: .zero, size: base.size), operation: .copy, fraction: 1.0)
+        icon.draw(at: NSPoint(x: x, y: y), from: NSRect(origin: .zero, size: icon.size), operation: .sourceOver, fraction: 1.0)
 
         image.unlockFocus()
         return image

@@ -26,7 +26,6 @@ class CSMenuPanel: NSPanel {
         super.init(contentRect: frame, styleMask: .borderless, backing: .buffered, defer: false)
         
         self.isReleasedWhenClosed = false
-        
         self.backgroundColor = .black
         self.level = .popUpMenu
         //self.hasShadow = true
@@ -91,11 +90,11 @@ class CSMenuPanel: NSPanel {
         middle.draw(at: .zero, from: NSRect(origin: .zero, size: middle.size), operation: .copy, fraction: 1.0)
 
         let right = Bundle.module.image(forResource: right)!
-        right.size = .init(width: 1 * SCALE, height: height * SCALE)
+        right.size = .init(width: SCALE, height: height * SCALE)
         right.draw(at: NSPoint(x: 88 * SCALE, y: 0), from: NSRect(origin: .zero, size: right.size), operation: .sourceOver, fraction: 1.0)
         
         let left = Bundle.module.image(forResource: left)!
-        left.size = .init(width: 1 * SCALE, height: height * SCALE)
+        left.size = .init(width: SCALE, height: height * SCALE)
         left.draw(at: .zero, from: NSRect(origin: .zero, size: left.size), operation: .sourceOver, fraction: 1.0)
         
         baseImage.unlockFocus()
