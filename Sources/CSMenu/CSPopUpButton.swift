@@ -7,9 +7,9 @@
 
 import Cocoa
 
-public class CSPopUpButton: NSButton, CSMenuDelegate {
+public class CSPopUpButton: NSButton {
     // TODO: change
-    var popUpMenu: CSMenu?
+    var csMenu: CSMenu?
     
     // TODO: make private
     public var menuItems: [CSMenuItem] = []
@@ -92,26 +92,23 @@ public class CSPopUpButton: NSButton, CSMenuDelegate {
         let buttonFrame = self.convert(self.bounds, to: nil)
         let windowFrame = self.superview?.window!.convertToScreen(buttonFrame)
         let screenOrigin = windowFrame!.origin
-        
-        if let popUp = popUpMenu {
+        if let popUp = csMenu {
             if popUp.panel!.parent == superview!.window {
+                popUp.removeMonitor()
                 popUp.dismiss()
             } else {
                 popUp.popUp(at: screenOrigin, in: superview!)
+                csMenu?.addMonitor(ignoring: self)
             }
         } else {
             print("in this branch")
             //let slider = CSSliderPanel(at: screenOrigin)
             //superview!.window?.addChildWindow(slider, ordered: .above)
-            popUpMenu = CSMenu(items: self.menuItems)
-            popUpMenu?.popUp(at: screenOrigin, in: superview!)
-            popUpMenu?.addMonitor(ignoring: [self])
-            popUpMenu?.delegate = self
+            csMenu = CSMenu(items: self.menuItems)
+            csMenu?.popUp(at: screenOrigin, in: superview!)
+            csMenu?.addMonitor(ignoring: self)
+            csMenu?.delegate = self
         }
-    }
-    
-    func menuDidClose() {
-        self.state = .off
     }
     
     private static func addIcon(base: NSImage, icon: NSImage, x: CGFloat, y: CGFloat) -> NSImage {
@@ -123,5 +120,11 @@ public class CSPopUpButton: NSButton, CSMenuDelegate {
 
         image.unlockFocus()
         return image
+    }
+}
+
+extension CSPopUpButton: CSMenuDelegate {
+    func menuDidClose() {
+        self.state = .off
     }
 }
