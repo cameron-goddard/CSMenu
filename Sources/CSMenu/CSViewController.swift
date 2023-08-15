@@ -42,7 +42,7 @@ class CSViewController: NSViewController {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: SCALE),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -SCALE),
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: SCALE),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: SCALE + 0.5),
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -SCALE),
         ])
         
